@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import json
 import sqlite3
 import subprocess
@@ -15,6 +16,28 @@ from metroeats.validation import validate_dataset
 
 
 class PipelineTest(unittest.TestCase):
+    def test_review_brief_decodes_in_isolated_mode(self):
+        repository = Path(__file__).resolve().parents[1]
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-I",
+                "-m",
+                "base64",
+                "-d",
+                str(repository / "encoded" / "agent_brief.b64"),
+            ],
+            cwd=repository,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr.decode())
+        self.assertEqual(len(result.stdout), 542)
+        self.assertEqual(
+            hashlib.sha256(result.stdout).hexdigest(),
+            "8cd7416ef9e0d0c4e3104cb2897430d5f1814571d9685611e5a5ab16703cadb4",
+        )
+
     def test_struct_entrypoint(self):
         repository = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory() as temporary_directory:
