@@ -1,0 +1,10 @@
+accession_id,archive_path,media_type,source_path
+METROEATS-2025-CANCELLATION-REASONS,encoded/catalogue/cancellation_reasons.b85,text/csv,reports/cancellation_reasons.csv
+METROEATS-2025-CITY-PERFORMANCE,encoded/catalogue/city_performance.b85,text/csv,reports/city_performance.csv
+METROEATS-2025-CUISINE-PERFORMANCE,encoded/catalogue/cuisine_performance.b85,text/csv,reports/cuisine_performance.csv
+METROEATS-2025-CUSTOMER-SEGMENTS,encoded/catalogue/customer_segments.b85,text/csv,reports/customer_segments.csv
+METROEATS-2025-DELIVERY-SLA,encoded/catalogue/delivery_sla.b85,text/csv,reports/delivery_sla.csv
+METROEATS-2025-EXECUTIVE-SUMMARY,encoded/catalogue/executive_summary.b85,application/json,reports/executive_summary.json
+METROEATS-2025-MONTHLY-PERFORMANCE,encoded/catalogue/monthly_performance.b85,text/csv,reports/monthly_performance.csv
+METROEATS-2025-REPORT-MANIFEST,encoded/catalogue/report_manifest.b85,application/json,reports/report_manifest.json
+METROEATS-2025-TOP-ITEMS,encoded/catalogue/top_items.b85,text/csv,reports/top_items.csv

@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: generate validate database analyze test all
+.PHONY: generate validate database analyze catalogue test all
 
 generate:
 	$(PYTHON) struct.py generate
@@ -13,6 +13,9 @@ database:
 
 analyze:
 	$(PYTHON) struct.py analyze
+
+catalogue:
+	$(PYTHON) struct.py build-catalogue
 
 test:
 	$(PYTHON) struct.py test

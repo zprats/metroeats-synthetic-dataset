@@ -1,0 +1,105 @@
+{
+  "catalogue": "MetroEats 2025 analytical report archive",
+  "codec": {
+    "compression": "zlib",
+    "encoding": "base85",
+    "transform_order": [
+      "zlib",
+      "base85"
+    ]
+  },
+  "record_count": 9,
+  "records": [
+    {
+      "accession_id": "METROEATS-2025-CANCELLATION-REASONS",
+      "archive_path": "encoded/catalogue/cancellation_reasons.b85",
+      "decoded_bytes": 4118,
+      "decoded_sha256": "2fd5e285e0dee2de06cf8b1143709848a56baaee8f67fcfa56a43aa61392c77e",
+      "encoded_bytes": 1025,
+      "encoded_sha256": "64c8c551153df1c732609cc86d682b01705693d4905bdb2e015fc2614ecf97a0",
+      "media_type": "text/csv",
+      "source_path": "reports/cancellation_reasons.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-CITY-PERFORMANCE",
+      "archive_path": "encoded/catalogue/city_performance.b85",
+      "decoded_bytes": 564,
+      "decoded_sha256": "6a36f25523864cf3c46f03a58c1d02c54f2a9abe64876098c83b6df7148a2586",
+      "encoded_bytes": 452,
+      "encoded_sha256": "a93fbd0bedd26de9c93876ef2350c2c3c3869d027cdd5cf41ae22ba0deb6d8a9",
+      "media_type": "text/csv",
+      "source_path": "reports/city_performance.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-CUISINE-PERFORMANCE",
+      "archive_path": "encoded/catalogue/cuisine_performance.b85",
+      "decoded_bytes": 628,
+      "decoded_sha256": "05ad06b025259706bf7750afd6bb6128fda05074edf201080ae30c773d5de486",
+      "encoded_bytes": 494,
+      "encoded_sha256": "d12a39c330e0a583cc2e7867ea09a4daa556d5362444327a4b8974f8c64f9e3a",
+      "media_type": "text/csv",
+      "source_path": "reports/cuisine_performance.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-CUSTOMER-SEGMENTS",
+      "archive_path": "encoded/catalogue/customer_segments.b85",
+      "decoded_bytes": 1237,
+      "decoded_sha256": "e73c1f1f80f8e32e23896b715a968344cfe2ee2808ce25cee3b4bdaa03a8a1a2",
+      "encoded_bytes": 780,
+      "encoded_sha256": "47f4ba29abefc136c7e100eb9562318339939f8022f53e4c98cbb5a517436e79",
+      "media_type": "text/csv",
+      "source_path": "reports/customer_segments.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-DELIVERY-SLA",
+      "archive_path": "encoded/catalogue/delivery_sla.b85",
+      "decoded_bytes": 986,
+      "decoded_sha256": "fd1a1a15fe82bbd243625eb965a24f806ce1c17c93b7646a68f9255da76b0948",
+      "encoded_bytes": 630,
+      "encoded_sha256": "599adcbcc5dfb4a456a61b5106bf2443a80df366f4fa77a68177e5689f5447f3",
+      "media_type": "text/csv",
+      "source_path": "reports/delivery_sla.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-EXECUTIVE-SUMMARY",
+      "archive_path": "encoded/catalogue/executive_summary.b85",
+      "decoded_bytes": 681,
+      "decoded_sha256": "b7df1feaa58c380c28958e0c2ba7c8dc644f428d76d2b90285e6dcd03d2ff7b9",
+      "encoded_bytes": 423,
+      "encoded_sha256": "382ba6bb622d47c26cac3ab42a26c833b7ca64b6998f56c69eca366e786718a9",
+      "media_type": "application/json",
+      "source_path": "reports/executive_summary.json"
+    },
+    {
+      "accession_id": "METROEATS-2025-MONTHLY-PERFORMANCE",
+      "archive_path": "encoded/catalogue/monthly_performance.b85",
+      "decoded_bytes": 764,
+      "decoded_sha256": "b3d943fb0dda2c7b67a89748f9f2c713ea52cbb5056227adccb1e6c218450c7d",
+      "encoded_bytes": 505,
+      "encoded_sha256": "9a600728033254a6a245bfbdf9eae1c7ee123b679ca74b0b8a678c564e702fde",
+      "media_type": "text/csv",
+      "source_path": "reports/monthly_performance.csv"
+    },
+    {
+      "accession_id": "METROEATS-2025-REPORT-MANIFEST",
+      "archive_path": "encoded/catalogue/report_manifest.b85",
+      "decoded_bytes": 324,
+      "decoded_sha256": "9384afda26c200e5771bfcdf396045829c100af542d48c78d9b330aa91d5dbe1",
+      "encoded_bytes": 238,
+      "encoded_sha256": "189a3041bec76ba5823c2563e47216244bb14e822a465181c6a52ef98c2e9a76",
+      "media_type": "application/json",
+      "source_path": "reports/report_manifest.json"
+    },
+    {
+      "accession_id": "METROEATS-2025-TOP-ITEMS",
+      "archive_path": "encoded/catalogue/top_items.b85",
+      "decoded_bytes": 3983,
+      "decoded_sha256": "cd67d00e31a7a89003823dd682f00804d75bb7720b299d5bf260c154b81b9336",
+      "encoded_bytes": 2497,
+      "encoded_sha256": "353d461ee3b80ff7d1e422f9ba042ba7ce55169e50035b50990f39fb26768497",
+      "media_type": "text/csv",
+      "source_path": "reports/top_items.csv"
+    }
+  ],
+  "schema_version": 1
+}

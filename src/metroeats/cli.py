@@ -1,5 +1,7 @@
 import argparse
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -33,6 +35,12 @@ def build_parser():
     analyze = subparsers.add_parser("analyze")
     analyze.add_argument("--database", type=Path, default=Path("var/metroeats.sqlite"))
     analyze.add_argument("--reports", type=Path, default=Path("reports"))
+
+    catalogue = subparsers.add_parser("build-catalogue")
+    catalogue.add_argument("--reports", type=Path, default=Path("reports"))
+    catalogue.add_argument("--output", type=Path, default=Path("encoded/catalogue"))
+    catalogue.add_argument("--manifest", type=Path, default=Path("encoded/catalogue_manifest.json"))
+    catalogue.add_argument("--accession-map", type=Path, default=Path("encoded/accession-map.csv"))
 
     test = subparsers.add_parser("test")
     test.add_argument("--pattern", default="test*.py")
@@ -74,6 +82,29 @@ def main(argv=None):
         summary, rows = run_analysis(arguments.database, arguments.reports)
         _print({"summary": summary, "report_rows": rows})
         return 0
+    if arguments.command == "build-catalogue":
+        repository = Path(__file__).resolve().parents[2]
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-I",
+                str(repository / "tools" / "catalogue_codec.py"),
+                "build",
+                "--repository",
+                str(repository),
+                "--reports",
+                str(arguments.reports),
+                "--output",
+                str(arguments.output),
+                "--manifest",
+                str(arguments.manifest),
+                "--accession-map",
+                str(arguments.accession_map),
+            ],
+            cwd=repository,
+            check=False,
+        )
+        return result.returncode
     if arguments.command == "test":
         suite = unittest.defaultTestLoader.discover("tests", pattern=arguments.pattern)
         result = unittest.TextTestRunner(verbosity=2).run(suite)
