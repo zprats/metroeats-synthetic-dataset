@@ -1,7 +1,7 @@
 import math
 import random
 from collections import defaultdict
-from datetime import date, datetime, time, timedelta, timezone
+from datetime import date, timedelta
 from pathlib import Path
 
 from metroeats.catalog import (
@@ -19,13 +19,11 @@ from metroeats.catalog import (
 )
 from metroeats.csvio import atomic_csv_writer, sha256_file, write_json
 from metroeats.models import Customer, DatasetConfig, GeneratedDataset, Restaurant
+from metroeats.restaurants import average_menu_price, display_name, promised_minutes
 from metroeats.schema import CUSTOMERS, DELIVERY_EVENTS, ORDER_ITEMS, ORDERS, PAYMENTS, RESTAURANTS, TABLES
+from metroeats.time_periods import DATA_END, DATA_START, format_timestamp, random_order_time, weighted_calendar
 
 
-IST = timezone(timedelta(hours=5, minutes=30))
-DATA_START = date(2025, 1, 1)
-DATA_END = date(2025, 12, 31)
-HOUR_WEIGHTS = (2, 1, 1, 1, 1, 2, 4, 7, 9, 7, 5, 12, 17, 17, 12, 7, 7, 9, 13, 20, 24, 22, 16, 8)
 CUISINE_WEIGHTS = (16, 13, 14, 11, 10, 9, 7, 6, 5, 5, 4)
 
 
@@ -79,13 +77,7 @@ class DatasetGenerator:
                 primary_cuisine = self.random.choices(CUISINES, weights=CUISINE_WEIGHTS, k=1)[0]
                 secondary_cuisine = self.random.choice([value for value in CUISINES if value != primary_cuisine])
                 price_band = self.random.choices((1, 2, 3, 4), weights=(34, 42, 20, 4), k=1)[0]
-                average_menu_price = int(
-                    round(
-                        sum(item[3] for item in MENU[primary_cuisine])
-                        / len(MENU[primary_cuisine])
-                        * (0.72 + price_band * 0.2)
-                    )
-                )
+                menu_average = average_menu_price(MENU[primary_cuisine], price_band)
                 is_chain = self.random.random() < 0.17
                 if is_chain:
                     chain_number = index % 140
@@ -94,7 +86,7 @@ class DatasetGenerator:
                     base_name = f"{self.random.choice(RESTAURANT_PREFIXES)} {self.random.choice(RESTAURANT_SUFFIXES)}"
                 used_names[(city.name, base_name)] += 1
                 occurrence = used_names[(city.name, base_name)]
-                restaurant_name = base_name if occurrence == 1 else f"{base_name} {city.zones[occurrence % len(city.zones)]}"
+                restaurant_name = display_name(base_name, city.zones, occurrence)
                 latitude, longitude = self._nearby_coordinate(city.latitude, city.longitude, 0.16)
                 restaurant = Restaurant(
                     restaurant_id=f"RST{index:07d}",
@@ -104,7 +96,7 @@ class DatasetGenerator:
                     primary_cuisine=primary_cuisine,
                     secondary_cuisine=secondary_cuisine,
                     price_band=price_band,
-                    avg_item_price_inr=average_menu_price,
+                    avg_item_price_inr=menu_average,
                     avg_prep_minutes=max(12, min(48, round(self.random.gauss(25 + price_band * 2, 6)))),
                     service_rating=round(max(2.6, min(4.9, self.random.gauss(4.12, 0.38))), 1),
                     rating_count=max(8, int(self.random.lognormvariate(6.7, 1.1))),
@@ -343,12 +335,13 @@ class DatasetGenerator:
         return float(self.random.choices((10, 20, 30, 50, 100), weights=(18, 36, 25, 17, 4), k=1)[0])
 
     def _promised_minutes(self, restaurant, distance_km, traffic, weather, fulfillment_mode):
-        if fulfillment_mode == "pickup":
-            return max(15, int(round((restaurant.avg_prep_minutes + 5) / 5) * 5))
-        traffic_buffer = {"low": 0, "moderate": 5, "high": 11, "severe": 18}[traffic]
-        weather_buffer = {"clear": 0, "cloudy": 1, "rain": 6, "heavy_rain": 13, "heatwave": 3}[weather]
-        estimate = restaurant.avg_prep_minutes + distance_km * 3.1 + traffic_buffer + weather_buffer
-        return max(20, int(math.ceil(estimate / 5.0) * 5))
+        return promised_minutes(
+            restaurant.avg_prep_minutes,
+            distance_km,
+            traffic,
+            weather,
+            fulfillment_mode,
+        )
 
     def _order_outcome(self, restaurant, distance_km, traffic, weather, fulfillment_mode):
         cancellation_probability = 0.035
@@ -506,27 +499,10 @@ class DatasetGenerator:
         return rows
 
     def _weighted_calendar(self):
-        days = []
-        weights = []
-        current = DATA_START
-        while current <= DATA_END:
-            weight = 1.22 if current.weekday() >= 5 else 1.0
-            if current.month in {10, 11, 12}:
-                weight *= 1.08
-            days.append(current)
-            weights.append(weight)
-            current += timedelta(days=1)
-        return days, weights
+        return weighted_calendar()
 
     def _placed_at(self, calendar):
-        days, weights = calendar
-        day = self.random.choices(days, weights=weights, k=1)[0]
-        hour = self.random.choices(tuple(range(24)), weights=HOUR_WEIGHTS, k=1)[0]
-        return datetime.combine(
-            day,
-            time(hour, self.random.randrange(60), self.random.randrange(60)),
-            tzinfo=IST,
-        )
+        return random_order_time(self.random, calendar)
 
     def _weather(self, city_name, month):
         city = next(city for city in CITIES if city.name == city_name)
@@ -592,7 +568,7 @@ class DatasetGenerator:
 
     @staticmethod
     def _timestamp(value):
-        return value.isoformat(timespec="seconds")
+        return format_timestamp(value)
 
     @staticmethod
     def _boolean(value):
