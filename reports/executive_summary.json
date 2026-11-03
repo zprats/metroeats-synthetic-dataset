@@ -1,0 +1,28 @@
+{
+  "basket": {
+    "order_lines": 153478,
+    "units": 183880,
+    "units_per_order": 3.06
+  },
+  "marketplace": {
+    "active_restaurants": 4999,
+    "average_delivery_minutes": 48.17,
+    "average_order_value_inr": 744.74,
+    "delivered_discount_inr": 2422125.8,
+    "delivered_gmv_inr": 42678679.7,
+    "delivered_orders": 57307,
+    "delivery_rate_pct": 95.51,
+    "on_time_rate_pct": 54.08,
+    "ordering_customers": 25941,
+    "orders": 60000
+  },
+  "payments": {
+    "gateway_fees_inr": 672096.27,
+    "payment_failure_rate_pct": 0.55,
+    "refunds_inr": 1248045.62
+  },
+  "top_city_by_delivered_gmv": {
+    "city": "Bengaluru",
+    "delivered_gmv_inr": 10330740.15
+  }
+}

@@ -1,0 +1,78 @@
+cuisine,item_name,units,orders,gross_item_value_inr,average_unit_price_inr
+North Indian,Tandoori Chicken,4151,2992,1789510.0,431.05
+North Indian,Butter Chicken,4046,2898,1596830.0,394.88
+Biryani,Mutton Biryani,3496,2528,1580325.0,452.08
+North Indian,Paneer Butter Masala,3977,2895,1306745.0,328.53
+South Indian,Chicken Chettinad,3353,2427,1258170.0,375.0
+Biryani,Chicken Dum Biryani,3568,2572,1199580.0,336.19
+North Indian,Dal Makhani,4033,2872,1091640.0,270.86
+Pizza,Pepperoni Pizza,2139,1574,1090425.0,510.41
+Biryani,Paneer Biryani,3491,2494,1058095.0,302.98
+Pizza,Chicken Tikka Pizza,2158,1540,1030060.0,477.09
+Pizza,Farmhouse Pizza,2254,1619,949295.0,420.41
+Biryani,Egg Biryani,3534,2546,948805.0,268.81
+Chinese,Chicken Manchurian,2767,1992,898100.0,324.98
+Chinese,Chilli Paneer,2707,1974,813110.0,300.5
+Chinese,Chicken Fried Rice,2880,2063,804690.0,279.6
+North Indian,Jeera Rice,4102,2978,784860.0,191.1
+South Indian,Ghee Podi Dosa,3298,2364,713825.0,216.4
+Chinese,Hakka Noodles,2612,1928,670325.0,256.95
+Continental,Grilled Chicken Steak,1263,924,639305.0,506.06
+Continental,Fish and Chips,1332,950,632025.0,475.75
+Pizza,Margherita Pizza,2140,1560,606115.0,282.85
+Fast Food,Crispy Chicken Burger,2381,1710,592850.0,249.54
+Healthy,Grilled Chicken Salad,1476,1076,589080.0,399.15
+Healthy,Quinoa Power Bowl,1542,1111,574760.0,373.35
+Healthy,Paneer Protein Bowl,1557,1127,564215.0,361.53
+South Indian,Masala Dosa,3225,2382,548825.0,170.2
+Chinese,Darsaan,2710,1954,546265.0,201.85
+Continental,Mushroom Risotto,1242,922,545415.0,439.92
+South Indian,Curd Rice,3355,2409,531295.0,158.36
+Fast Food,Chicken Wrap,2319,1708,526145.0,226.94
+Chinese,Veg Momos,2767,1996,524315.0,189.61
+Healthy,Avocado Toast,1508,1111,501135.0,332.01
+Fast Food,Veggie Loaded Sandwich,2454,1741,500090.0,203.87
+North Indian,Gulab Jamun,4016,2874,494655.0,123.32
+Biryani,Double Ka Meetha,3541,2528,474490.0,133.93
+Chinese,Hot and Sour Soup,2810,2026,469340.0,167.1
+Fast Food,Classic Veg Burger,2544,1811,459400.0,180.66
+South Indian,Idli Vada Combo,3373,2461,459230.0,135.91
+Continental,Penne Arrabbiata,1266,923,453900.0,359.11
+Healthy,Hummus Platter,1476,1056,452115.0,305.93
+Fast Food,Cold Coffee,2511,1816,426710.0,169.99
+Desserts,Kunafa,1379,971,423660.0,307.3
+Pizza,Garlic Bread,2170,1581,390675.0,180.17
+Continental,Caesar Salad,1226,891,387800.0,316.38
+Desserts,New York Cheesecake,1329,972,381735.0,286.97
+Healthy,Berry Smoothie,1504,1085,377890.0,251.17
+South Indian,Mysore Pak,3265,2333,370355.0,113.45
+Street Food,Chicken Kathi Roll,1738,1245,369300.0,212.23
+Biryani,Mirchi Ka Salan,3623,2589,363715.0,100.4
+Fast Food,Peri Peri Fries,2443,1739,359460.0,147.02
+Desserts,Belgian Chocolate Cake,1308,960,343155.0,263.14
+Healthy,Chia Pudding,1580,1141,342285.0,216.93
+Desserts,Chocolate Waffle,1350,992,338785.0,250.19
+Fast Food,Chocolate Brownie,2371,1690,322680.0,135.83
+Street Food,Pav Bhaji,1811,1287,321750.0,178.35
+Continental,Tiramisu,1216,872,315290.0,258.17
+North Indian,Garlic Naan,4021,2923,313295.0,77.88
+South Indian,Filter Coffee,3244,2354,293095.0,90.29
+Desserts,Red Velvet Jar,1348,968,276485.0,205.05
+Biryani,Masala Chaach,3482,2524,271045.0,77.77
+Pizza,Choco Lava Cake,2114,1514,261435.0,123.56
+Desserts,Cold Cocoa,1321,961,258760.0,195.57
+Street Food,Samosa Chaat,1707,1249,248905.0,145.65
+Street Food,Dahi Puri,1767,1279,237985.0,134.56
+Desserts,Mango Ice Cream,1293,936,220585.0,170.64
+Beverages,Chocolate Thickshake,982,703,215725.0,220.12
+Street Food,Pani Puri,1802,1307,200150.0,110.83
+Beverages,Cold Brew Coffee,1003,707,199970.0,199.26
+Beverages,Mango Shake,1039,713,181540.0,174.44
+Continental,Iced Tea,1236,887,180195.0,145.85
+Street Food,Masala Lemonade,1776,1268,158860.0,89.43
+Beverages,Lemon Iced Tea,977,711,149385.0,153.18
+Beverages,Watermelon Juice,1021,735,145880.0,142.76
+Beverages,Tender Coconut Water,940,680,124135.0,132.05
+Pizza,Cheese Dip,2145,1505,119740.0,55.79
+Street Food,Vada Pav,1748,1248,116730.0,66.86
+Beverages,Classic Milk Tea,1021,714,100310.0,97.7

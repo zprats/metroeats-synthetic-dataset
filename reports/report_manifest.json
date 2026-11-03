@@ -1,0 +1,13 @@
+{
+  "reports": {
+    "cancellation_reasons.csv": 104,
+    "city_performance.csv": 8,
+    "cuisine_performance.csv": 11,
+    "customer_segments.csv": 24,
+    "delivery_sla.csv": 19,
+    "executive_summary.json": 1,
+    "monthly_performance.csv": 12,
+    "top_items.csv": 77
+  },
+  "source_database": "var/metroeats.sqlite"
+}

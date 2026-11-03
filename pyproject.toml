@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metroeats-analytics"
+version = "1.0.0"
+description = "Synthetic food-delivery marketplace data for operational analytics"
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]

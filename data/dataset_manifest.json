@@ -1,0 +1,42 @@
+{
+  "currency": "INR",
+  "dataset": "MetroEats Marketplace Operations",
+  "period_end": "2025-12-31",
+  "period_start": "2025-01-01",
+  "schema_version": "1.0.0",
+  "seed": 202501,
+  "synthetic": true,
+  "tables": {
+    "customers.csv": {
+      "bytes": 2562105,
+      "rows": 30000,
+      "sha256": "4e578ab49fef0d959fa8e9dfb08b72921ceb8ecae13d3a6d44322a093becc5a6"
+    },
+    "delivery_events.csv": {
+      "bytes": 34581910,
+      "rows": 292239,
+      "sha256": "db32ecc2cd1ecf0951ceb011caa5aa6df7be30d702d8ebb6a58d05fecf928a59"
+    },
+    "order_items.csv": {
+      "bytes": 15201051,
+      "rows": 153478,
+      "sha256": "44e4d2977622ba144d14a8d7313899255ec1ae12ee787b75a5c67fc380d16fc4"
+    },
+    "orders.csv": {
+      "bytes": 9902487,
+      "rows": 60000,
+      "sha256": "649b72c899a66a1ac67086a899141c76175afa3208433a70742eb50a47e9170c"
+    },
+    "payments.csv": {
+      "bytes": 7093743,
+      "rows": 60000,
+      "sha256": "d829b749a82a2a717b4c2bf0ecb93605ed2fe6032ff88c9fdb68540dfda39224"
+    },
+    "restaurants.csv": {
+      "bytes": 641872,
+      "rows": 5000,
+      "sha256": "a82bc505f6457022a97597a8eb05585d0028f51032c86932a9ca33227c4aa081"
+    }
+  },
+  "timezone": "Asia/Kolkata"
+}
