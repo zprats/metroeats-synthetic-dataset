@@ -19,9 +19,9 @@ from metroeats.catalog import (
 )
 from metroeats.csvio import atomic_csv_writer, sha256_file, write_json
 from metroeats.models import Customer, DatasetConfig, GeneratedDataset, Restaurant
-from metroeats.restaurants import average_menu_price, display_name, promised_minutes
 from metroeats.schema import CUSTOMERS, DELIVERY_EVENTS, ORDER_ITEMS, ORDERS, PAYMENTS, RESTAURANTS, TABLES
-from metroeats.time_periods import DATA_END, DATA_START, format_timestamp, random_order_time, weighted_calendar
+from restaurants import average_menu_price, display_name, promised_minutes
+from time_periods import DATA_END, DATA_START, format_timestamp, random_order_time, weighted_calendar
 
 
 CUISINE_WEIGHTS = (16, 13, 14, 11, 10, 9, 7, 6, 5, 5, 4)

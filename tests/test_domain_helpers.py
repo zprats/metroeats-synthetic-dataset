@@ -2,8 +2,8 @@ import random
 import unittest
 from datetime import date, datetime
 
-from metroeats.restaurants import average_menu_price, display_name, promised_minutes
-from metroeats.time_periods import IST, format_timestamp, random_order_time, weighted_calendar
+from restaurants import average_menu_price, display_name, promised_minutes
+from time_periods import IST, format_timestamp, random_order_time, weighted_calendar
 
 
 class RestaurantHelpersTest(unittest.TestCase):
