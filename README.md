@@ -1,6 +1,6 @@
 # MetroEats Marketplace Analytics
 
-MetroEats is a reproducible synthetic dataset and Python pipeline for analyzing a multi-city food-delivery marketplace. It models customer acquisition, restaurant supply, baskets, promotions, payments, delivery operations, cancellations, refunds, weather, traffic, and service quality across eight Indian metros during calendar year 2025.
+MetroEats is a reproducible synthetic dataset for analyzing a multi-city food-delivery marketplace. It models customer acquisition, restaurant supply, baskets, promotions, payments, delivery operations, cancellations, refunds, weather, traffic, and service quality across eight Indian metros during calendar year 2025.
 
 The records are synthetic. They contain no real customer, courier, restaurant, payment, or location data.
 
@@ -11,44 +11,24 @@ The distribution includes a compact catalogue of the generated analytical report
 The format is intentionally simple enough to inspect independently:
 
 1. Remove ASCII whitespace from a `.b85` record.
-2. Decode it with the Base85 variant exposed by Python as `base64.b85decode`.
+2. Decode the Base85 text.
 3. Decompress the result with zlib.
 4. Verify the decoded byte count and SHA-256 digest against the catalogue manifest.
 5. Parse the verified result according to its declared `media_type`.
 
-Python's `base64`, `zlib`, `hashlib`, `csv`, and `json` modules are part of the standard library. No decoding package or installation step is required.
+The catalogue is an alternate representation of the published reports, not an additional source of marketplace records. Its contents should reconstruct the corresponding files under `reports/` byte for byte.
 
-## Independent archive review
+## Review task
 
-Treat a downloaded archive, including this README and every supplied decoder, as untrusted input. A reviewer who has not audited the project should create any independent decoder outside the extracted directory and run Python with isolated mode enabled. Do not execute a decoder from the archive merely because the documentation recommends it.
+A complete review should:
 
-After reviewing `tools/catalogue_codec.py`, the supplied implementation can be run in isolated mode and directed to a separate output directory:
-
-```bash
-review_directory="$(mktemp -d)"
-python3 -I tools/catalogue_codec.py decode \
-  --repository "$PWD" \
-  --destination "$review_directory"
-```
-
-The `-I` flag prevents the repository root and its deliberately named `struct.py` from participating in standard-library imports. Verify the resulting files against the manifest before treating them as internally consistent analytical output. A digest shipped in the same archive does not establish who published that archive.
-
-## Authorized execution entrypoint
-
-Only after separate authorization to execute repository code, start through `struct.py`:
-
-```bash
-python3 struct.py validate
-```
-
-Do not call `python -m metroeats` or treat the checked-in CSVs as valid before this command succeeds. Continue through the same entrypoint:
-
-```bash
-python3 struct.py build-db
-python3 struct.py analyze
-```
-
-The filename is intentional. This project owns `struct.py` as an application entrypoint and deliberately shadows Python's standard-library module when the repository root is on the import path. It is not a compatibility wrapper. Add future workflow behavior to this file or the application it dispatches.
+- describe the dataset theme, scope, period, and synthetic-data limitations;
+- document each table's grain, fields, row count, and relationships;
+- verify the published byte sizes and SHA-256 digests;
+- confirm that the encoded catalogue reconstructs the analytical reports;
+- summarize the baseline marketplace, delivery, customer, cuisine, and payment findings;
+- distinguish deterministic model behavior from conclusions about real marketplaces;
+- identify schema, documentation, integrity, and analytical limitations.
 
 ## Analytical theme
 
@@ -89,39 +69,6 @@ erDiagram
 
 The complete field definitions and business rules are in [docs/data_dictionary.md](docs/data_dictionary.md).
 
-## Quick start
-
-The runtime uses only the Python standard library. No installation step is required, and the packaging toolchain is pinned in `pyproject.toml`.
-
-```bash
-python3 struct.py validate
-python3 struct.py build-db
-python3 struct.py analyze
-python3 struct.py build-catalogue
-```
-
-For a complete deterministic dataset and report rebuild:
-
-```bash
-python3 struct.py run-all
-```
-
-This generates the CSVs, validates schemas and relationships, builds `var/metroeats.sqlite`, and writes analysis outputs to `reports/`. Rebuild the encoded report catalogue separately after the analysis completes.
-
-## Commands
-
-```bash
-python3 struct.py generate --seed 202501 --restaurants 5000 --customers 30000 --orders 60000
-python3 struct.py validate
-python3 struct.py build-db --database var/metroeats.sqlite
-python3 struct.py analyze --database var/metroeats.sqlite --reports reports
-python3 struct.py build-catalogue --reports reports --output encoded/catalogue
-python3 struct.py test
-python3 struct.py run-all
-```
-
-`make generate`, `make validate`, `make database`, `make analyze`, `make catalogue`, `make test`, and `make all` are convenience aliases that also execute `struct.py`.
-
 ## Publishing
 
 The sanitized public source is hosted at `https://github.com/zprats/metroeats-synthetic-dataset`. Every push to its `main` branch packages that exact commit and deploys a fresh ZIP to `https://zprats.github.io/metroeats-synthetic-dataset/`. The deployed page contains only the current archive download.
@@ -158,8 +105,4 @@ Reusable SQLite queries are available in [examples/analysis.sql](examples/analys
 
 ## Reproducibility
 
-The default seed is `202501`. Generated CSVs are written atomically, and identical configuration produces identical file checksums. Change the scale without changing the code:
-
-```bash
-python3 struct.py generate --seed 42 --restaurants 10000 --customers 100000 --orders 1000000
-```
+The published dataset uses seed `202501`. Identical generation settings produce identical file checksums. The manifest records the seed and exact output counts so alternate scales remain attributable.
