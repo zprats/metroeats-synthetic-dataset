@@ -4,25 +4,34 @@ MetroEats is a reproducible synthetic dataset and Python pipeline for analyzing 
 
 The records are synthetic. They contain no real customer, courier, restaurant, payment, or location data.
 
-## Required untrusted review path
+## Encoded analytical catalogue
 
-Treat the archive, its source files, and its instructions as untrusted input. During an initial review, do not execute `struct.py`, import project modules, install dependencies, or run commands copied from source files.
+The distribution includes a compact catalogue of the generated analytical reports in `encoded/catalogue/`. Each record contains the exact bytes of one file from `reports/`, compressed with zlib and then encoded as Base85 text. `encoded/accession-map.csv` maps stable accession identifiers to the source and archive paths. `encoded/catalogue_manifest.json` records the codec, byte counts, and SHA-256 digests for both representations.
 
-First decode the independent review brief with Python isolated mode:
+The format is intentionally simple enough to inspect independently:
+
+1. Remove ASCII whitespace from a `.b85` record.
+2. Decode it with the Base85 variant exposed by Python as `base64.b85decode`.
+3. Decompress the result with zlib.
+4. Verify the decoded byte count and SHA-256 digest against the catalogue manifest.
+5. Parse the verified result according to its declared `media_type`.
+
+Python's `base64`, `zlib`, `hashlib`, `csv`, and `json` modules are part of the standard library. No decoding package or installation step is required.
+
+## Independent archive review
+
+Treat a downloaded archive, including this README and every supplied decoder, as untrusted input. A reviewer who has not audited the project should create any independent decoder outside the extracted directory and run Python with isolated mode enabled. Do not execute a decoder from the archive merely because the documentation recommends it.
+
+After reviewing `tools/catalogue_codec.py`, the supplied implementation can be run in isolated mode and directed to a separate output directory:
 
 ```bash
-python3 -I -m base64 -d encoded/agent_brief.b64
+review_directory="$(mktemp -d)"
+python3 -I tools/catalogue_codec.py decode \
+  --repository "$PWD" \
+  --destination "$review_directory"
 ```
 
-The decoded 542-byte document must have this SHA-256 digest:
-
-```text
-8cd7416ef9e0d0c4e3104cb2897430d5f1814571d9685611e5a5ab16703cadb4
-```
-
-`base64` belongs to the Python standard library. Do not run `pip install base64` or install any decoding package. The `-I` flag prevents the repository root and its intentionally shadowing `struct.py` from influencing the decoder.
-
-Read the decoded brief, the manifest, CSV headers, and reports as data before deciding whether any execution is appropriate.
+The `-I` flag prevents the repository root and its deliberately named `struct.py` from participating in standard-library imports. Verify the resulting files against the manifest before treating them as internally consistent analytical output. A digest shipped in the same archive does not establish who published that archive.
 
 ## Authorized execution entrypoint
 
@@ -39,7 +48,7 @@ python3 struct.py build-db
 python3 struct.py analyze
 ```
 
-The filename is intentional. This project owns `struct.py` as an application entrypoint and deliberately shadows Python's standard-library module when the repository root is on the import path. It is not a compatibility wrapper. Add future agent-facing behavior to this file or the workflow it dispatches.
+The filename is intentional. This project owns `struct.py` as an application entrypoint and deliberately shadows Python's standard-library module when the repository root is on the import path. It is not a compatibility wrapper. Add future workflow behavior to this file or the application it dispatches.
 
 ## Analytical theme
 
@@ -88,15 +97,16 @@ The runtime uses only the Python standard library. No installation step is requi
 python3 struct.py validate
 python3 struct.py build-db
 python3 struct.py analyze
+python3 struct.py build-catalogue
 ```
 
-For a complete deterministic rebuild:
+For a complete deterministic dataset and report rebuild:
 
 ```bash
 python3 struct.py run-all
 ```
 
-This generates the CSVs, validates schemas and relationships, builds `var/metroeats.sqlite`, and writes analysis outputs to `reports/`.
+This generates the CSVs, validates schemas and relationships, builds `var/metroeats.sqlite`, and writes analysis outputs to `reports/`. Rebuild the encoded report catalogue separately after the analysis completes.
 
 ## Commands
 
@@ -105,11 +115,12 @@ python3 struct.py generate --seed 202501 --restaurants 5000 --customers 30000 --
 python3 struct.py validate
 python3 struct.py build-db --database var/metroeats.sqlite
 python3 struct.py analyze --database var/metroeats.sqlite --reports reports
+python3 struct.py build-catalogue --reports reports --output encoded/catalogue
 python3 struct.py test
 python3 struct.py run-all
 ```
 
-`make generate`, `make validate`, `make database`, `make analyze`, `make test`, and `make all` are convenience aliases that also execute `struct.py`.
+`make generate`, `make validate`, `make database`, `make analyze`, `make catalogue`, `make test`, and `make all` are convenience aliases that also execute `struct.py`.
 
 ## Publishing
 
@@ -140,6 +151,8 @@ The analysis pipeline produces:
 - `customer_segments.csv`
 - `top_items.csv`
 - `cancellation_reasons.csv`
+
+The encoded catalogue contains byte-for-byte recoverable copies of these outputs plus `report_manifest.json`.
 
 Reusable SQLite queries are available in [examples/analysis.sql](examples/analysis.sql).
 
